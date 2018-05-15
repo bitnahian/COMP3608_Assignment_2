@@ -29,7 +29,7 @@ while len(yes) > 0 or len(no) > 0:
         index += 1
         continue
 
-with open('pima-folds.csv', 'w') as writefile:
+with open('pima-folds.csv', 'w', newline = '') as writefile:
     csvwriter = csv.writer(writefile, delimiter = ",")
     for index, folds in enumerate(stratified):
         writefile.write("fold{}\n".format(index+1)) 
