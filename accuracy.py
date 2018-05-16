@@ -28,12 +28,12 @@ def calculate_accuracy(testing_set, outputs):
     
     return positive/size
 
-def test_accuracy(folds):
+def test_accuracy(folds, classifier):
     accuracy = []
     for i in range(len(folds)):
-        training_set = list(itertools.chain(*folds[:i], *folds[i:]))
+        training_set = list(itertools.chain(*folds[:i], *folds[i+1:]))
         testing_set = folds[i]
-        outputs = mc.run_dt(training_set, testing_set)
+        outputs = classifier(training_set, testing_set)
         accuracy.append(calculate_accuracy(testing_set, outputs))
     
     return mc.nb.statistics.mean(accuracy) 
@@ -43,11 +43,17 @@ if __name__ in "__main__":
 
     pima_discretised_folds = read_fold('pima-discretised-folds.csv') 
     pima_discretised_CFS_folds = read_fold('pima-discretised-CFS-folds.csv')
+    pima_folds = read_fold('pima-folds.csv')
+    pima_folds_CFS = read_fold('pima-CFS-folds.csv') 
 
-    cross_validation_accuracy = test_accuracy(pima_discretised_folds)
-    cross_validation_accuracy_CFS = test_accuracy(pima_discretised_CFS_folds)
+    cross_validation_accuracy_dt = test_accuracy(pima_discretised_folds, mc.run_dt)
+    cross_validation_accuracy_CFS_dt = test_accuracy(pima_discretised_CFS_folds, mc.run_dt)
+    cross_validation_accuracy_nb = test_accuracy(pima_folds, mc.run_nb)
+    cross_validation_accuracy_CFS_nb = test_accuracy(pima_folds_CFS, mc.run_nb) 
 
-    print("cross validation accuracy for pima-discretised.csv : {}".format(cross_validation_accuracy))
-    print("cross validation accuracy for pima-discretised-CFS.csv : {}".format(cross_validation_accuracy_CFS))
+    print("cross validation accuracy for pima-discretised-folds.csv : {}".format(cross_validation_accuracy_dt))
+    print("cross validation accuracy for pima-discretised-CFS-folds.csv : {}".format(cross_validation_accuracy_CFS_dt))
+    print("cross validation accuracy for pima-folds.csv : {}".format(cross_validation_accuracy_nb))
+    print("cross validation accuracy for pima-CFS-folds.csv : {}".format(cross_validation_accuracy_CFS_nb))
 
     

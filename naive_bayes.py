@@ -3,36 +3,6 @@ import math
 import statistics
 
 
-# Reads the csv containing the training set
-def readData(filename):
-    training_set = []
-    list_yes = []
-    list_no = []
-    with open(filename, newline='') as training_data:
-        reader = csv.reader(training_data, delimiter=',')
-
-        for row in reader:
-            training_set.append(row)
-
-            if row[len(row) - 1] == 'yes':
-                list_yes.append(row)
-
-            elif row[len(row) - 1] == 'no':
-                list_no.append(row)
-
-    return training_set, list_yes, list_no
-
-# Reads the csv containing the testing set
-def readTestData(filename):
-    testing_set = []
-    with open(filename, newline='') as testing_data:
-        reader = csv.reader(testing_data, delimiter=',')
-
-        for row in reader:
-            testing_set.append(row)
-    
-    return testing_set
-
 # For every attribute in the yes and no list, calculate the mean and variance using statistics lib
 def cal_mean_var(dataset):
     list_mean = {}

@@ -1,0 +1,4 @@
+cross validation accuracy for pima-discretised-folds.csv : 0.7448393711551606
+cross validation accuracy for pima-discretised-CFS-folds.csv : 0.7852529049897471
+cross validation accuracy for pima-folds.csv : 0.7460526315789474
+cross validation accuracy for pima-CFS-folds.csv : 0.7630724538619276

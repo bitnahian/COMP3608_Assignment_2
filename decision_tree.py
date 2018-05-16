@@ -142,9 +142,7 @@ def DTL(data, attributes, default):
     return tree
 
 def printTree(tree, level):
-    levels = str(tree.attribute) + " "
-    for i in range(level):
-        levels += " | "
+    levels = " | "*level + str(attributes[tree.attribute]) + " = "
     for leaf, value in tree.leaves.items():
         print("{}{} : {}".format(levels,leaf,value))
     for node, value in tree.nodes.items():
@@ -162,3 +160,4 @@ def classify(tree, test):
         return classify(tree.nodes[branch], test)
     else:
         return tree.default
+attributes = ['no. of times pregnant', 'plasma glucose concentration', 'diastolic blood pressure', 'triceps skin fold thickness', '2-hr serum insulin', 'BMI', 'diabetes pedigree function', 'age']
