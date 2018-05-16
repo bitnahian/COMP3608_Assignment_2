@@ -61,4 +61,3 @@ list_mean_no = {}
 list_mean_yes = {}
 list_var_no = {}
 list_var_yes = {}
-
