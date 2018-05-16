@@ -1,14 +1,85 @@
 import sys
-import math
 import csv
+import math
+import statistics
 
 
-
-
+# Reads the csv containing the training set
 def readData():
-    with open(sys.argv[1], newline='') as training_set:
-        reader = csv.reader(training_set, delimiter=',')
+    with open(sys.argv[1], newline='') as training_data:
+        reader = csv.reader(training_data, delimiter=',')
+
         for row in reader:
+            training_set.append(row)
+
+            if row[len(row) - 1] == 'yes':
+                list_yes.append(row)
+
+            elif row[len(row) - 1] == 'no':
+                list_no.append(row)
 
 
+# Reads the csv containing the testing set
+def readTestData():
+    with open(sys.argv[2], newline='') as testing_data:
+        reader = csv.reader(testing_data, delimiter=',')
 
+        for row in reader:
+            testing_set.append(row)
+
+
+# For every attribute in the yes and no list, calculate the mean and variance using statistics lib
+def cal_mean_var(dataset):
+    list_mean = {}
+    list_var = {}
+
+    for i in range(len(dataset[0]) - 1):
+        column = list(map(lambda row: float(row[i]), dataset))
+        list_mean[i] = statistics.mean(column)
+        list_var[i] = statistics.variance(column, list_mean[i])
+
+    return list_mean, list_var
+
+
+# Calculate the pdf for the no classifier given the specific value, the type of attribute, mean and variance
+# Return the value for further calculation
+def pdf(x, index, list_var, list_mean):
+    power = math.pow((x - list_mean[index]), 2) / (2 * list_var[index])
+    exponent_val = math.pow(math.e, -power)
+
+    final_val = (1 / (math.sqrt(2 * list_var[index] * math.pi))) * exponent_val
+
+    return final_val
+
+
+# List of the training data, testting data, mean of all the attrs, variance of the attrs and list of yes and no
+training_set = []
+testing_set = []
+list_yes = []
+list_no = []
+list_mean_no = {}
+list_mean_yes = {}
+list_var_no = {}
+list_var_yes = {}
+
+# Carry this out if the third arg is calling for Naive Bayes
+if sys.argv[3] == 'NB':
+    readData()
+    readTestData()
+    list_mean_no, list_var_no = cal_mean_var(list_no)
+    list_mean_yes, list_var_yes = cal_mean_var(list_yes)
+
+    # Calculate the numerator bit for the classifiers, i.e., yes and no
+    # Compare the probability of the classifiers and based on that, predict the outcome.
+    for row in testing_set:
+        prob_yes = 1
+        prob_no = 1
+        for index, data in enumerate(row):
+            prob_yes *= pdf(float(data), index, list_var_yes, list_mean_yes)
+            prob_no *= pdf(float(data), index, list_var_no, list_mean_no)
+
+        prob_yes *= len(list_yes) / len(training_set)
+        prob_no *= len(list_no) / len(training_set)
+
+        output = 'yes' if prob_yes >= prob_no else 'no'
+        print(output)
