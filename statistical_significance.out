@@ -1,0 +1,28 @@
+Tester:     weka.experiment.PairedCorrectedTTester -G 4,5,6 -D 1 -R 2 -S 0.05 -V -result-matrix "weka.experiment.ResultMatrixPlainText -mean-prec 2 -stddev-prec 2 -col-name-width 0 -row-name-width 25 -mean-width 2 -stddev-width 2 -sig-width 1 -count-width 5 -show-stddev -show-avg -print-col-names -print-row-names -enum-col-names"
+Analysing:  Percent_correct
+Datasets:   1
+Resultsets: 8
+Confidence: 0.05 (two tailed)
+Sorted by:  -
+Date:       17/05/18 1:25 AM
+
+
+Dataset                   (1) functions.SMO  | (2) trees.Rando (3) rules.ZeroR (4) rules.OneR  (5) lazy.IBk '- (6) lazy.IBk '- (7) bayes.Naive (8) functions.M
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+data                     (100)   76.26(5.09) |   76.35(4.22)     65.11(0.34) *   70.95(5.24) *   69.33(4.76) *   74.93(5.03)     74.77(5.47)     75.02(5.10)  
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+Average                          76.26       |   76.35           65.11           70.95           69.33           74.93           74.77           75.02        
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                     (v/ /*) |         (0/1/0)         (0/0/1)         (0/0/1)         (0/0/1)         (0/1/0)         (0/1/0)         (0/1/0)
+
+
+Key:
+(1) functions.SMO '-C 1.0 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 -K \"functions.supportVector.PolyKernel -E 1.0 -C 250007\" -calibrator \"functions.Logistic -R 1.0E-8 -M -1 -num-decimal-places 4\"' -6585883636378691736
+(2) trees.RandomForest '-P 100 -I 100 -num-slots 1 -K 0 -M 1.0 -V 0.001 -S 1' 1116839470751428698
+(3) rules.ZeroR '' 48055541465867954
+(4) rules.OneR '-B 6' -3459427003147861443
+(5) lazy.IBk '-K 1 -W 0 -A \"weka.core.neighboursearch.LinearNNSearch -A \\\"weka.core.EuclideanDistance -R first-last\\\"\"' -3080186098777067172
+(6) lazy.IBk '-K 5 -W 0 -A \"weka.core.neighboursearch.LinearNNSearch -A \\\"weka.core.EuclideanDistance -R first-last\\\"\"' -3080186098777067172
+(7) bayes.NaiveBayes '' 5995231201785697655
+(8) functions.MultilayerPerceptron '-L 0.3 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H a' -5990607817048210779
+
