@@ -5,7 +5,7 @@ no = []
 
 fold = 10
 
-with open('pima.csv', newline = '') as csvfile:
+with open('pima-CFS.csv', newline = '') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
     for row in reader:
         if 'yes' in row:
@@ -29,7 +29,7 @@ while len(yes) > 0 or len(no) > 0:
         index += 1
         continue
 
-with open('pima-folds.csv', 'w', newline = '') as writefile:
+with open('pima-CFS-folds.csv', 'w', newline = '') as writefile:
     csvwriter = csv.writer(writefile, delimiter = ",")
     for index, folds in enumerate(stratified):
         writefile.write("fold{}\n".format(index+1)) 

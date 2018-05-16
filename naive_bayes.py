@@ -62,24 +62,3 @@ list_mean_yes = {}
 list_var_no = {}
 list_var_yes = {}
 
-# Carry this out if the third arg is calling for Naive Bayes
-if sys.argv[3] == 'NB':
-    readData()
-    readTestData()
-    list_mean_no, list_var_no = cal_mean_var(list_no)
-    list_mean_yes, list_var_yes = cal_mean_var(list_yes)
-
-    # Calculate the numerator bit for the classifiers, i.e., yes and no
-    # Compare the probability of the classifiers and based on that, predict the outcome.
-    for row in testing_set:
-        prob_yes = 1
-        prob_no = 1
-        for index, data in enumerate(row):
-            prob_yes *= pdf(float(data), index, list_var_yes, list_mean_yes)
-            prob_no *= pdf(float(data), index, list_var_no, list_mean_no)
-
-        prob_yes *= len(list_yes) / len(training_set)
-        prob_no *= len(list_no) / len(training_set)
-
-        output = 'yes' if prob_yes >= prob_no else 'no'
-        print(output)
