@@ -55,7 +55,8 @@ def run_dt(data, tests):
     attributes = [x for x in range(len(data[0])-1)]
     # Initial call
     dt.tree = dt.DTL(data, attributes, False)
-    # dt.printTree(dt.tree, 0)
+    if len(sys.argv) >= 4 and sys.argv[4] == "print":
+        dt.printTree(dt.tree, 0)
     outputs = []
     for test in tests:
         outputs.append("yes" if dt.classify(dt.tree, test) else "no")
@@ -67,6 +68,7 @@ if __name__ in "__main__":
     csvfile = sys.argv[1]
     testfile = sys.argv[2]
     mode = sys.argv[3]
+    DT = sys.argv[4]
     # List of the training data, testting data, mean of all the attrs, variance of the attrs and list of yes and no
     training_set = []
     testing_set = []
